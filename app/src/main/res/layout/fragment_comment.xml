@@ -5,11 +5,18 @@
     android:orientation="vertical">
 
     <TextView
-        android:hint="暂无任何评论！"
-        android:gravity="center"
         android:id="@+id/tv_comment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:hint="暂无任何评论！" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_comment"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:visibility="gone" />
 
 </LinearLayout>

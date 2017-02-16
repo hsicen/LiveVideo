@@ -62,23 +62,24 @@ public class MainActivity extends AppCompatActivity {
      * 布局初始化
      */
     private void initView() {
+
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensorEventListener = new JCVideoPlayer.JCAutoFullscreenListener();
 
         mVideoPlayerStandard = (HVideoPlayer) findViewById(R.id.custom_videoplayer_standard);
         mMsgEditText = (EditText) findViewById(R.id.message);
-        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
         Button sendBtn = (Button) findViewById(R.id.sendMsg);
         mFragmentList.add(CommentFragment.newInstance());
         mFragmentList.add(RewardFragment.newInstance());
 
+        //TabLayout与ViewPager的使用
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mViewPageradapter = new TableFragmentAdapter(getSupportFragmentManager()
                 ,mFragmentList);
         viewPager.setAdapter(mViewPageradapter);
         mTabLayout.setupWithViewPager(viewPager);
-
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override

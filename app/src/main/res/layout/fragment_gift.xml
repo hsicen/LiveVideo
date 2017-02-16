@@ -5,11 +5,16 @@
     android:orientation="vertical">
 
     <TextView
-        android:hint="主播暂无人守护！"
-        android:gravity="center"
         android:id="@+id/tv_gift"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:gravity="center"
+        android:hint="主播暂无人守护！" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_gift"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
 </LinearLayout>
