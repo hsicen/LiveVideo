@@ -1,10 +1,12 @@
 package com.utouu.livevideo;
 
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText mMsgEditText;
     private TabLayout mTabLayout;
 
+    private JCVideoPlayer.JCAutoFullscreenListener sensorEventListener;
+    private SensorManager sensorManager;
+
     private int mRoomId;
     private String mBeginTime;
 
@@ -56,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
      * 布局初始化
      */
     private void initView() {
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensorEventListener = new JCVideoPlayer.JCAutoFullscreenListener();
+
         mVideoPlayerStandard = (HVideoPlayer) findViewById(R.id.custom_videoplayer_standard);
         mMsgEditText = (EditText) findViewById(R.id.message);
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -100,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * 设置用户的状态监听
+         */
         mVideoPlayerStandard.setJcUserAction(new JCUserAction() {
             @Override
             public void onEvent(int type, String url, int screen, Object... objects) {
@@ -119,6 +130,9 @@ public class MainActivity extends AppCompatActivity {
         mVideoPlayerStandard.setUp("http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8",
                 JCVideoPlayer.SCREEN_LAYOUT_NORMAL,"CCTV-1 HD");
         mVideoPlayerStandard.thumbImageView.setImageResource(R.drawable.abc);
+
+        //自动进入播放
+        mVideoPlayerStandard.startButton.performClick();
     }
 
     /**
@@ -161,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        sensorManager.unregisterListener(sensorEventListener);
         JCVideoPlayer.releaseAllVideos();
         if (mFullScreenPlayer != null){
             mFullScreenPlayer.hideDanmu();
@@ -170,6 +185,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Sensor accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sensorManager.registerListener(sensorEventListener, accelerometerSensor,
+                SensorManager.SENSOR_DELAY_NORMAL);
+
         mVideoPlayerStandard.danmaResume();
     }
 }

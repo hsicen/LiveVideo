@@ -114,7 +114,7 @@ public class HVideoPlayer extends JCVideoPlayerStandard{
     public void startDismissControlViewTimer() {
         //重写父类方法，防止自动隐藏播放器工具栏。
         //如需要自动隐藏请删除此方法或调用super.startDismissControlViewTimer();
-        super.startDismissControlViewTimer();
+        //super.startDismissControlViewTimer();
     }
 
    /**
