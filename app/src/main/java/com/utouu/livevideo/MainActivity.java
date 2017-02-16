@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.utouu.livevideo.adapter.TableFragmentAdapter;
 import com.utouu.livevideo.fragment.CommentFragment;
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
      * 点击送礼调用的方法
      */
     private void showGift() {
-
+        Toast.makeText(this, "该功能正在开发中....", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -151,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
         if (mFullScreenPlayer != null && mFullScreenPlayer.isFullScreen()){
             mFullScreenPlayer.addDanmaku(msgContent,true);
         }
+        mVideoPlayerStandard.addDanmaku(msgContent,true);
     }
 
     @Override

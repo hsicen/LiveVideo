@@ -198,7 +198,7 @@ public class HVideoPlayer extends JCVideoPlayerStandard{
      * @param withBorder 对否有边框
      */
     public void addDanmaku(String content, boolean withBorder) {
-        //创建一个从右到左的弹幕库
+        //创建一个从左到右的弹幕库
         BaseDanmaku danmaku = danmakuContext.mDanmakuFactory.
                 createDanmaku(BaseDanmaku.TYPE_SCROLL_LR);
         if (danmaku == null || danmakuView == null){
@@ -210,6 +210,7 @@ public class HVideoPlayer extends JCVideoPlayerStandard{
         danmaku.padding = 5;
         danmaku.textSize = sp2px(20);
         danmaku.textColor = Color.WHITE;
+        danmaku.textShadowColor = Color.CYAN;
         danmaku.setTime(danmakuView.getCurrentTime());
         if (withBorder){
             danmaku.borderColor = Color.GREEN;
@@ -274,12 +275,13 @@ public class HVideoPlayer extends JCVideoPlayerStandard{
 
         //全屏下展示弹幕
         if (currentScreen == SCREEN_WINDOW_FULLSCREEN){
-            initDanmu();
+//            initDanmu(); 非全屏下展示弹幕功能
             mEiEditText.setVisibility(View.VISIBLE);
             mSendImage.setVisibility(View.VISIBLE);
             mFullScreenListener.onFullScreen(this);
         }else if (currentScreen == SCREEN_LAYOUT_NORMAL
                 || currentScreen == SCREEN_LAYOUT_LIST){
+            initDanmu();
             mEiEditText.setVisibility(View.INVISIBLE);
             mSendImage.setVisibility(View.INVISIBLE);
         }
